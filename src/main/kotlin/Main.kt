@@ -1,10 +1,11 @@
+import com.forthreal.application.classes.ISimpleQueue
 import com.forthreal.application.classes.QueueNode
 import com.forthreal.application.classes.SimpleQueue
 import com.forthreal.exceptions.QueueIsEmptyException
 
 fun main(args: Array<String>)
 {
-    val queue = SimpleQueue()
+    val queue : ISimpleQueue = SimpleQueue()
 
     queue.enqueue( QueueNode(1) )
     queue.enqueue( QueueNode(2) )
