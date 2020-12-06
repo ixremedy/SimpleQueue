@@ -5,21 +5,21 @@ import javax.xml.ws.Holder
 class QueueNode
 {
     val myNumber: Long
-    val prev: Holder<QueueNode?> = Holder()
+    val next: Holder<QueueNode?> = Holder()
 
     constructor(number: Long)
     {
         myNumber = number
     }
 
-    fun setPrev(prevNode: QueueNode?)
+    fun setNext(nextNode: QueueNode?)
     {
-        prev.value = prevNode
+        next.value = nextNode
     }
 
-    fun prevIsNull() = prev.value == null
+    fun nextIsNull() = next.value == null
 
-    fun getPrev() = prev.value
+    fun getNext() = next.value
 
     fun printVal()
     {

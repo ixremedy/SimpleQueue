@@ -5,7 +5,8 @@ import javax.xml.ws.Holder
 
 class SimpleQueue : ISimpleQueue
 {
-    val next: Holder<QueueNode> = Holder()
+    val elem: Holder<QueueNode> = Holder()
+    val last: Holder<QueueNode> = Holder()
     val currentSize: Holder<Long> = Holder()
 
     constructor()
@@ -15,20 +16,20 @@ class SimpleQueue : ISimpleQueue
 
     override fun dequeue(): QueueNode
     {
-        if( next.value == null )
+        if( elem.value == null )
         {
             throw QueueIsEmptyException()
         }
 
-        val toReturn = next.value
+        val toReturn = elem.value
 
-        if( next.value.prevIsNull() )
+        if( elem.value.nextIsNull() )
         {
-            next.value = null
+            elem.value = null
         }
         else
         {
-            next.value = next.value.getPrev()
+            elem.value = elem.value.getNext()
         }
 
         currentSize.value--
@@ -38,16 +39,17 @@ class SimpleQueue : ISimpleQueue
 
     override fun enqueue(node: QueueNode)
     {
-        if( next.value == null )
+        if( elem.value == null )
         {
-            next.value = node
-            node.setPrev( null )
+            elem.value = node
         }
         else
         {
-            node.setPrev( next.value )
-            next.value = node
+            last.value.setNext( node )
         }
+
+        last.value = node
+        node.setNext( null )
 
         currentSize.value++
     }
